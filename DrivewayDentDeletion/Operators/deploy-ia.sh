@@ -72,7 +72,7 @@ CATALOG="${PROVIDER_ORG}-catalog"
 if [[ ${APIC} == "true" ]]; then
 if ! oc get secret -n $NAMESPACE apim-credentials ; then
 APIC_NAMESPACE=apic
-APIC_NAME=apic
+APIC_NAME=apim-demo
 PLATFORM_API="https://$(oc get route -n ${NAMESPACE} ${APIC_NAME}-mgmt-platform-api -o jsonpath="{.spec.host}")/"
 CERTIFICATE="$(oc get route -n ${NAMESPACE} ${APIC_NAME}-mgmt-platform-api -o json | jq -r .spec.tls.caCertificate)"
 CERTIFICATE_NEWLINES_REPLACED=$(echo "${CERTIFICATE}" | awk '{printf "%s\\n", $0}')
