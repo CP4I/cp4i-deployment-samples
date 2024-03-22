@@ -84,7 +84,7 @@ PLATFORM_API_EP=$(oc get secret apim-credentials -n $NAMESPACE -o json | jq -r .
 $DEBUG && echo "[DEBUG] PLATFORM_API_EP=${PLATFORM_API_EP}"
 
 
-GW_BASE_URL=$(oc get secret apim-credentials -n $NAMESPACE -o json | jq -r .data.gw_base_url | base64 --decode)
+GW_BASE_URL=$(oc get secret apim-credentials -n $NAMESPACE -o json | jq -r .data.base_url | base64 --decode)
 [[ -z $GW_BASE_URL ]] && echo -e "[ERROR] ${CROSS} DP GW base url doesn't exist" && exit 1
 
 JQ=jq
