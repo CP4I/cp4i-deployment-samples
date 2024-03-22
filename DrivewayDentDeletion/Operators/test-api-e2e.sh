@@ -137,6 +137,10 @@ echo "INFO: Database name is: '${DB_NAME}'"
 divider
 
 echo -e "INFO: Testing E2E API now..."
+echo "[DEBUG] API_AUTH ${API_AUTH}"
+echo "[DEBUG] X-IBM-Client-Id: ${CLIENT_ID}"
+echo "[DEBUG] X-IBM-Client-Secret: ${CLIENT_SECRET}"
+
 
 # ------- Post to the database -------
 echo "request url: $HOST/quote"
