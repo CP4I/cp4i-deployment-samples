@@ -87,6 +87,8 @@ $DEBUG && echo "[DEBUG] PLATFORM_API_EP=${PLATFORM_API_EP}"
 GW_BASE_URL=$(oc get secret apim-credentials -n $NAMESPACE -o json | jq -r .data.base_url | base64 --decode)
 [[ -z $GW_BASE_URL ]] && echo -e "[ERROR] ${CROSS} DP GW base url doesn't exist" && exit 1
 
+$DEBUG && echo "[DEBUG] BASE_URL ${GW_BASE_URL}"
+
 JQ=jq
 
 OUTPUT=""
@@ -200,6 +202,8 @@ RES=$(curl -kLsS -X POST ${PLATFORM_API_EP}api/consumer-orgs/${PROVIDER_ORG}/$CA
 handle_res "${RES}"
 echo -e "[INFO] ${TICK} Application created"
 
+
+echo "[INFO] Creating ENDPOINT_SECRET..."
 if [[ $ENDPOINT_SECRET_NAME != "" ]]; then
     CLIENT_ID=$(echo "${OUTPUT}" | $JQ -r ".client_id")
     CLIENT_SECRET=$(echo "${OUTPUT}" | $JQ -r ".client_secret")
@@ -209,6 +213,7 @@ if [[ $ENDPOINT_SECRET_NAME != "" ]]; then
       HOST="${GW_BASE_URL}$PROVIDER_ORG/$CATALOG$BASE_PATH"
       $DEBUG && echo "[DEBUG] HOST: ${HOST}"
 
+$DEBUG && echo "[DEBUG] Owner url: ${OWNER_URL}"
       # Store api endpoint & client id/secret in secret
       cat <<EOF | oc apply -n ${NAMESPACE} -f -
 apiVersion: v1
