@@ -116,6 +116,7 @@ if [[ $APIC == true ]]; then
   CLIENT_ID=$(oc get secret -n ${NAMESPACE} ${ENDPOINT_SECRET_NAME} -o jsonpath='{.data.cid}' | base64 --decode)
   CLIENT_SECRET=$(oc get secret -n ${NAMESPACE} ${ENDPOINT_SECRET_NAME} -o jsonpath='{.data.csecret}' | base64 --decode)
   $DEBUG && echo "[DEBUG] Client id: ${CLIENT_ID}"
+  API_AUTH=$(echo -n "${USERNAME}:${PASSWORD}" | base64)
   [[ $CLIENT_ID == "null" ]] && echo -e "[ERROR] ${CROSS} Couldn't get client id" && exit 1
 else
   HOST=https://$(oc get routes -n ${NAMESPACE} | grep ddd-${DDD_TYPE}-ace-api-https | awk '{print $2}')/drivewayrepair
@@ -140,12 +141,11 @@ echo -e "INFO: Testing E2E API now..."
 echo "[DEBUG] API_AUTH ${API_AUTH}"
 echo "[DEBUG] X-IBM-Client-Id: ${CLIENT_ID}"
 echo "[DEBUG] X-IBM-Client-Secret: ${CLIENT_SECRET}"
-
+HOST="https://apim-demo-gw-gateway-cp4i.apps.65ef7559d3de1e001e20176b.cloud.techzone.ibm.com/main-demo/main-demo-catalog/drivewayrepair/quote"
 
 # ------- Post to the database -------
 echo "request url: $HOST/quote"
 post_response=$(curl -ksw " %{http_code}" -X POST $HOST/quote \
-  -H "authorization: Basic ${API_AUTH}" \
   -H "X-IBM-Client-Id: ${CLIENT_ID}" \
   -H "X-IBM-Client-Secret: ${CLIENT_SECRET}" \
   -H "content-type: application/json" \
