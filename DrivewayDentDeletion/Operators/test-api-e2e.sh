@@ -142,6 +142,7 @@ echo "[DEBUG] API_AUTH ${API_AUTH}"
 echo "[DEBUG] X-IBM-Client-Id: ${CLIENT_ID}"
 echo "[DEBUG] X-IBM-Client-Secret: ${CLIENT_SECRET}"
 
+#Looks like something changed related to the correct URL to make a test POST. Need to figure out how to get the correct gateway url
 if [[ "${DDD_TYPE}" == "dev" ]]; then
 HOST="https://apim-demo-gw-gateway-cp4i.apps.65ef7559d3de1e001e20176b.cloud.techzone.ibm.com/main-demo/main-demo-catalog/drivewayrepair"
 else
