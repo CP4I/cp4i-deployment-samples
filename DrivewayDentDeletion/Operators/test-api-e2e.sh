@@ -141,7 +141,12 @@ echo -e "INFO: Testing E2E API now..."
 echo "[DEBUG] API_AUTH ${API_AUTH}"
 echo "[DEBUG] X-IBM-Client-Id: ${CLIENT_ID}"
 echo "[DEBUG] X-IBM-Client-Secret: ${CLIENT_SECRET}"
+
+if [[ ${DDD_TYPE == "dev"}]]; then
 HOST="https://apim-demo-gw-gateway-cp4i.apps.65ef7559d3de1e001e20176b.cloud.techzone.ibm.com/main-demo/main-demo-catalog/drivewayrepair"
+else
+HOST="https://apim-demo-gw-gateway-cp4i.apps.65ef7559d3de1e001e20176b.cloud.techzone.ibm.com/ddd-demo-test/ddd-demo-test-catalog/drivewayrepair"
+fi
 
 # ------- Post to the database -------
 echo "request url: $HOST/quote"
