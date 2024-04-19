@@ -24,8 +24,8 @@ CURRENT_DIR=$(dirname $0)
 source $CURRENT_DIR/../../products/bash/utils.sh
 
 NAMESPACE="cp4i"
-BLOCK_STORAGE_CLASS="cp4i-block-performance"
-FILE_STORAGE_CLASS="cp4i-file-performance-gid"
+BLOCK_STORAGE_CLASS="ocs-storagecluster-ceph-rbd"
+FILE_STORAGE_CLASS="ocs-storagecluster-cephfs"
 DDD_ENV="dev"
 APIC="false"
 
